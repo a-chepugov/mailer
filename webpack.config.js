@@ -82,7 +82,9 @@ module.exports = function (env = {}) {
 				// vue: 'vue/dist/vue.js',
 				vue: 'vue/dist/vue.runtime.js',
 				'gpodder-client$': '../../gpodder-client',
-			}
+			},
+			modules: ['node_modules', 'bower_components'],
+			descriptionFiles: ['package.json', 'bower.json'],
 		}
 	}
 };

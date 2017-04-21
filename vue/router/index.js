@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '../components/Hello/vue.vue';
-import Login from '../components/Login/vue.vue';
+import Help from '../components/Help/index.vue';
+import Main from '../components/Main/index.vue';
 
 Vue.use(Router);
 
@@ -10,12 +10,12 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'Login',
-			component: Login
+			name: 'Main',
+			component: Main
 		}, {
-			path: '/hello',
-			name: 'Hello',
-			component: Hello
+			path: '/help',
+			name: 'Help',
+			component: Help
 		}
 	]
 });

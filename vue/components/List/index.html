@@ -1,0 +1,6 @@
+<div class="hello">
+    <input type="file" id="file" multiple accept="text/csv" v-on:change="onChange"/>
+    <ol>
+        <li v-for="file of files">{{file.name}}</li>
+    </ol>
+</div>
