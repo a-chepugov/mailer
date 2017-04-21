@@ -1,6 +1,19 @@
 <div class="hello">
     <input type="file" id="file" multiple accept="text/csv" v-on:change="onChange"/>
-    <ol>
+
+    <ol v-show="files.length">
+        Файлов с адресами: {{files.length}}
         <li v-for="file of files">{{file.name}}</li>
     </ol>
+
+    <table v-show="addressees.length">
+        <thead>Аддресатов: {{addressees.length}}</thead>
+        <tbody>
+        <tr v-for="addressee of addressees">
+            <td>{{addressee.name}}</td>
+            <td>{{addressee.email}}</td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>

@@ -15,6 +15,8 @@ const devServerParams = require('./webpack/devServerParams');
 const vueRule = require('./webpack/rules/vue');
 const babelRule = require('./webpack/rules/babel');
 const eslintRule = require('./webpack/rules/eslint');
+const fontsRule = require('./webpack/rules/url-fonts');
+const imagesRule = require('./webpack/rules/url-images');
 
 
 module.exports = function (env = {}) {
@@ -31,7 +33,7 @@ module.exports = function (env = {}) {
 		output
 	} = base(
 		["babel-polyfill", './vue/index.js'],
-		['vue'],
+		['vue', 'jquery'],
 		'[name].js?[chunkhash]',
 		path.resolve(__dirname, 'public', 'js'),
 		path.resolve(__dirname, 'public'));
@@ -43,7 +45,12 @@ module.exports = function (env = {}) {
 		HtmlWebpackPlugin('index.html', path.resolve(__dirname, 'public', 'index.html')),
 		DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-			isDev, isDev
+			isDev, isDev,
+		}),
+		new webpack.ProvidePlugin({
+			$: "jquery/dist/jquery.min.js",
+			jQuery: "jquery/dist/jquery.min.js",
+			"window.jQuery": "jquery/dist/jquery.min.js"
 		}),
 		CommonsChunkPlugin('vendor')
 	];
@@ -54,7 +61,9 @@ module.exports = function (env = {}) {
 				formatter: require('eslint-friendly-formatter')
 			}),
 			babelRule(),
-			vueRule()
+			vueRule(),
+			fontsRule(),
+			imagesRule(),
 		]
 	};
 

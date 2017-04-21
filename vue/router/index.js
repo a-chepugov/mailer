@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Help from '../components/Help/index.vue';
 import Main from '../components/Main/index.vue';
 
 Vue.use(Router);
@@ -12,10 +11,6 @@ export default new Router({
 			path: '/',
 			name: 'Main',
 			component: Main
-		}, {
-			path: '/help',
-			name: 'Help',
-			component: Help
 		}
 	]
 });
