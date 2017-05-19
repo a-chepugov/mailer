@@ -9,18 +9,19 @@ let gpodder = new GPodder();
 
 export default new Vuex.Store({
 	state: {
-		clientConfig: {}
+		auth: {},
+		data: []
 	},
 	getters: {},
 	mutations: {
-		getClientConfig (state, payload) {
-			state.clientConfig = payload;
+		setAuth (state, payload) {
+			state.auth = payload;
+		},
+		setData (state, payload) {
+			state.data.splice(0, state.data.length, ...payload);
 		}
 	},
 	actions: {
-		async getClientConfig () {
-			await gpodder.getClientConfig();
-		},
 		async login () {
 			await gpodder.login('a.chepugov', '77775648');
 		}

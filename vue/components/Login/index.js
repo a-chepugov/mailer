@@ -1,21 +1,22 @@
-import {mapActions} from 'vuex';
+import {mapActions, mapMutations} from 'vuex';
 
 export default {
-	components: {
-	},
+	components: {},
 	data () {
 		return {
-			login: '',
+			username: '',
 			password: '',
 		}
 	},
 	methods: {
-		...mapActions([
-		// 	'getClientConfig',
-		// 	'login'
-		])
-	},
-	created () {
-		// this.$store.dispatch('login')
+		...mapMutations([
+			'setAuth',
+		]),
+		onUsernameChange() {
+			this.setAuth({username: this.username, password: this.password})
+		},
+		onPasswordChange() {
+			this.setAuth({username: this.username, password: this.password})
+		}
 	}
 }

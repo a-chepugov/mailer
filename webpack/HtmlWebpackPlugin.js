@@ -6,7 +6,7 @@ module.exports = function (template, filename) {
 		hash: true,
 		// xhtml: true,
 		template,
-		// inject: true,
+		inject: true,
 		filename,
 	})
 }

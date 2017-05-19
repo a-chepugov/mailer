@@ -18,42 +18,7 @@ const eslintRule = require('./webpack/rules/eslint');
 const fontsRule = require('./webpack/rules/url-fonts');
 const imagesRule = require('./webpack/rules/url-images');
 
-
 module.exports = function (env = {}) {
-
-	const {
-		NODE_ENV,
-		isDev,
-		isTest,
-		isProd,
-	} = defaultValues(env);
-
-	const {
-		entry,
-		output
-	} = base(
-		["babel-polyfill", './vue/index.js'],
-		['vue', 'jquery'],
-		'[name].js?[chunkhash]',
-		path.resolve(__dirname, 'public', 'js'),
-		path.resolve(__dirname, 'public'));
-
-	const watch = env.watch ? env.watch : false;
-
-	const plugins = [
-		CleanWebpackPlugin(__dirname, [path.join('public', 'js')]),
-		HtmlWebpackPlugin('index.html', path.resolve(__dirname, 'public', 'index.html')),
-		DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-			isDev, isDev,
-		}),
-		new webpack.ProvidePlugin({
-			$: "jquery/dist/jquery.min.js",
-			jQuery: "jquery/dist/jquery.min.js",
-			"window.jQuery": "jquery/dist/jquery.min.js"
-		}),
-		CommonsChunkPlugin('vendor')
-	];
 
 	const module = {
 		rules: [
@@ -67,25 +32,32 @@ module.exports = function (env = {}) {
 		]
 	};
 
-	const devtool = isProd ? 'source-map' : 'cheap-module-eval-source-map';
-
-	let devServer;
-	if (isDev) {
-		devServer = devServerParams(path.join(__dirname, "public"), config.port)
-	}
-
-	if (isProd) {
-		plugins.push(ClosureCompilerPlugin())
-	}
-
 	return {
-		entry,
-		output,
-		watch,
-		plugins,
+		context: path.join(__dirname),
+		entry: {
+			index: [
+				"babel-polyfill",
+				'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+				'./vue/index.js',
+			],
+			vendor: ['vue', 'jquery'],
+		},
+		output: {
+			path: path.join(__dirname, 'public'),
+			filename: '[name].js?[hash]',
+			publicPath: '/',
+		},
+		plugins: [
+			new webpack.HotModuleReplacementPlugin(),
+			new webpack.NoEmitOnErrorsPlugin(),
+			new webpack.ProvidePlugin({
+				$: "jquery/dist/jquery.min.js",
+				jQuery: "jquery/dist/jquery.min.js",
+				"window.jQuery": "jquery/dist/jquery.min.js"
+			}),
+			HtmlWebpackPlugin('template.html', 'index.html'),
+		],
 		module,
-		devtool,
-		devServer,
 		resolve: {
 			alias: {
 				// vue: 'vue/dist/vue.js',
@@ -95,5 +67,5 @@ module.exports = function (env = {}) {
 			modules: ['node_modules', 'bower_components'],
 			descriptionFiles: ['package.json', 'bower.json'],
 		}
-	}
-};
+	};
+}

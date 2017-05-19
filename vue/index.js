@@ -11,3 +11,11 @@ new Vue({
 	store,
 	render: h => h(App)
 });
+
+/* eslint-disable */
+
+if (module.hot) {
+	module.hot.accept();
+}
+
+/* eslint-enable */
