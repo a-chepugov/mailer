@@ -1,5 +1,7 @@
 <form>
+    <label for="subject">Тема письма: </label>
+    <input type="text" id="subject" name="subject" v-model="subject"/>
     <textarea name="message" id="message" rows="25" cols="80" v-model="template"></textarea>
     {{template}}
-    <input type="button" @click="save" value="Сохранить" />
+    <input type="button" @click="save" value="Сохранить"/>
 </form>

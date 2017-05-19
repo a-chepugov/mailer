@@ -3,5 +3,7 @@
     <input type="text" id="name" name="name" v-model="username" @input="onUsernameChange"/>
     <label for="password">Пароль: </label>
     <input type="password" id="password" name="password" v-model="password" @input="onPasswordChange"/>
-    <br/>{{username}}<br/>{{password}}
+    <label for="password">Пароль: </label>
+    <input type="text" id="hostname" name="hostname" v-model="hostname" @input="onHostnameChange"/>
+    <br/>{{username}}<br/>{{password}}<br/>{{hostname}}
 </form>

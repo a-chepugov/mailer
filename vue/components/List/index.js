@@ -11,7 +11,7 @@ export default {
 	},
 	methods: {
 		...mapMutations([
-				'setData'
+			'setData'
 		]),
 		onChange(event){
 			let {target: {files = [], value} = {}} = event;

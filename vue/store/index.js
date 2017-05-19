@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import axios from 'axios';
+
 Vue.use(Vuex);
-
-import GPodder from 'gpodder-client';
-
-let gpodder = new GPodder();
 
 export default new Vuex.Store({
 	state: {
@@ -22,8 +20,13 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		async login () {
-			await gpodder.login('a.chepugov', '77775648');
+		auth (context, payload) {
+			return axios.post('/auth', context.state.auth)
+				;
+		},
+		send (context, payload) {
+			return axios.post('/send', payload)
+				;
 		}
 	}
 });

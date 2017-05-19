@@ -1,10 +1,15 @@
-import express  from 'express';
+import express from 'express';
+import bodyParser from 'body-parser';
+import multer from 'multer';
+const upload = multer(); // for parsing multipart/form-data
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 import routes from './routes';
 routes(app);
