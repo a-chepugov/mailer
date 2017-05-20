@@ -1,24 +1,40 @@
-<div class="hello">
-    <input type="file" id="file" multiple accept="text/csv" @change="onChange"/>
+<blockquote>
+	<h3>Данные для отправки:</h3>
 
-    <ol v-show="files.length">
-        Файлов с адресами: {{files.length}}
-        <li v-for="file of files">{{file.name}}</li>
-    </ol>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-1 control-label" for="file">Список для рассылки:</label>
+			<div class="col-sm-3">
+				<input class="btn btn-default" type="file" id="file" multiple accept="text/csv" @change="onChange"/>
+			</div>
+		</div>
+	</form>
 
-    <table v-show="data.length" border="1">
-        <thead>Адресатов: {{data.length}}</thead>
-        <tbody>
-        <tr>
-            <th>Email</th>
-            <th v-for="field of fields">{{field}}</th>
-        </tr>
-        <tr v-for="(item, index ) of data">
-            <td >{{item.email}}</td>
-            <td v-for="field of fields">{{item[field]}}</td>
-            <td @click="itemDelete(index)">x</td>
-        </tr>
-        </tbody>
-    </table>
+	<ol v-show="files.length">
+		<h4>Файлов с адресами: {{files.length}}</h4>
+		<li v-for="file of files">{{file.name}}</li>
+	</ol>
 
-</div>
+	<div class="table-responsive">
+		<table class="table table-hover table-condensed" v-show="data.length">
+			<thead>Адресатов: {{data.length}}</thead>
+			<tbody>
+			<tr>
+				<th>Email</th>
+				<th v-for="field of fields">{{field}}</th>
+				<th></th>
+			</tr>
+			<tr v-for="(item, index ) of data">
+				<td :class="{'danger': !item.email }">{{item.email}}</td>
+				<td :class="{'warning': !item[field] }" v-for="field of fields">{{item[field]}}</td>
+				<td>
+					<button type="button" class="close" aria-label="Close" @click="itemDelete(index)">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+</blockquote>

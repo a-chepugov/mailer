@@ -8,23 +8,22 @@ export default {
 	data () {
 		return {
 			subject: 'Здравствуйте {{name}}',
-			template: 'Уважаемый {{name}}, ваш email: {{email}}',
+			template: 'Уважаемый {{name}}, ваш email: {{email}}, переменная {{var}}'
 		}
 	},
 	methods: {
 		...mapActions([
-			'auth',
-			'send'
+			'setAuth',
+			'sendEmail'
 		]),
 		save() {
 			let container = $('#message');
 			let {[0]: {value: template} = {}} = container;
 			this.template = template;
 
-
 			let {data: datas = []} = this.$store.state;
 
-			this.auth()
+			this.setAuth()
 				.then(async() => {
 					console.log(`Начинаем отсылку писем. К отсылке => ${datas.length}`);
 					let stopSending = false;
@@ -44,9 +43,10 @@ export default {
 							subject,
 							message
 						};
-						await this.send(emailData)
-							.then(console.info, () => {
+						await this.sendEmail(emailData)
+							.then(console.info, (error) => {
 								console.error('Ошибка при отправке! Рассылка остановлена!');
+								console.error(error);
 								// alert('Ошибка при отправке! Рассылка остановлена!');
 								stopSending = true;
 							})

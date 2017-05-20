@@ -49,7 +49,7 @@
     "webpack:development": "NODE_ENV=development webpack",
     "webpack:development:watch": "NODE_ENV=development webpack --env.watch",
     "webpack:production": "NODE_ENV=production webpack",
-    "start:development": "NODE_ENV=development node index.js"
+    "start:development": "NODE_ENV=development supervisor index.js"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

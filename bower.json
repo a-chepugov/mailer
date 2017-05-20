@@ -15,9 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "ckeditor": "^4.6.2",
     "papaparse": "^4.2.0",
-    "tinymce": "^4.5.6",
     "jhtmlarea": "^0.8.3",
     "jquery": "^3.2.1"
   }

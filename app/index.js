@@ -29,9 +29,8 @@ app.use(webpackDevMiddleware(compiler, {
 app.use(webpackHotMiddleware(compiler, {
 	log: console.log,
 	path: '/__webpack_hmr',
-	heartbeat: 10 * 1000,
+	heartbeat: 10 * 1000
 }));
-
 
 const server = app.listen(9876, function () {
 	const host = server.address().address;
@@ -39,5 +38,3 @@ const server = app.listen(9876, function () {
 
 	console.log('Example app listening at http://%s:%s', host, port);
 });
-
-

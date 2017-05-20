@@ -1,6 +1,4 @@
-import emailjs from 'emailjs';
-
-let emailjsServer;
+import emailServer from '../managers/email';
 
 export function setServer(req, res, next) {
 	let {
@@ -9,80 +7,35 @@ export function setServer(req, res, next) {
 		hostname: host
 	} = req.body;
 
-	emailjsServer = emailjs.server.connect({
-		user,
-		password,
-		host,
-		ssl: true
-	});
-
+	emailServer.configServer({user, password, host});
 	res.status(200).json({message: 'ready'});
 
 	next();
 }
 
 export async function send(req, res, next) {
-	if (emailjsServer) {
-		let missingFields = getMissingFields(req.body);
+	try {
+		let {
+			from,
+			to,
+			subject,
+			message: text
+		} = req.body;
 
-		console.dir(missingFields, {colors: true, depth: null});
-
-		if (!missingFields.length) {
-			let {
-				from,
-				to,
-				subject,
-				message: text
-			} = req.body;
-			try {
-				let promise = new Promise((s, f) => {
-					emailjsServer.send({
-						from,
-						to,
-						subject,
-						text,
-					}, function (error, message) {
-						if (error) {
-							f(error)
-
-						} else {
-							s(message)
-						}
-					});
-				});
-
-				await promise
-					.then((response) => {
-						res.status(200).json(message);
-					}, (error) => {
-						console.error(error);
-						res.status(500).json(error);
-					});
-
-			} catch (error) {
-				console.log(`email.js(send):55 => `);
-				console.error(error);
-				res.status(500).json(error);
-			}
+		let result = await emailServer.sendMessage({
+			from,
+			to,
+			subject,
+			text
+		});
+		if (result.data) {
+			res.status(200).json(result);
 		} else {
-			console.log(`email.js(send):60 => `);
-			res.status(400).json({message: 'Отсутствуют необходимые поля', fileds: missingFields});
+			res.status(400).json(result);
 		}
-	} else {
-		res.status(500).json({message: 'Почтовый сервер не настроен'});
+	} catch (error) {
+		console.error(error);
+		res.status(500).json(error);
 	}
-
 	next();
-}
-
-function getMissingFields(data = {}) {
-	let fields = [
-		'from',
-		'to',
-		'subject',
-		'message'
-	];
-	return fields.filter((field) => {
-		return !(data[field])
-	})
 }

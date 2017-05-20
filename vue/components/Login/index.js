@@ -5,22 +5,18 @@ export default {
 	data () {
 		return {
 			username: '',
-			password: '',
-			hostname: 'smtp.gmail.com',
-		}
+			password: ''
+		};
 	},
 	methods: {
 		...mapMutations([
-			'setAuth',
+			'setAuth'
 		]),
 		onUsernameChange() {
-			this.setAuth({username: this.username, password: this.password, hostname: this.hostname})
+			this.setAuth({username: this.username, password: this.password});
 		},
 		onPasswordChange() {
-			this.setAuth({username: this.username, password: this.password, hostname: this.hostname})
-		},
-		onHostnameChange() {
-			this.setAuth({username: this.username, password: this.password, hostname: this.hostname})
+			this.setAuth({username: this.username, password: this.password});
 		}
 	}
-}
+};

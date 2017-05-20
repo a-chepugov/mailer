@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		auth: {},
+		emailServerConfig: {},
 		data: []
 	},
 	getters: {},
@@ -15,16 +16,23 @@ export default new Vuex.Store({
 		setAuth (state, payload) {
 			state.auth = payload;
 		},
+		setEmailServerConfig (state, payload) {
+			state.emailServerConfig = payload;
+		},
 		setData (state, payload) {
 			state.data.splice(0, state.data.length, ...payload);
 		}
 	},
 	actions: {
-		auth (context, payload) {
+		setAuth (context) {
 			return axios.post('/auth', context.state.auth)
 				;
 		},
-		send (context, payload) {
+		setEmailServerConfig (context) {
+			return axios.post('/server', context.state.emailServerConfig)
+				;
+		},
+		sendEmail (context, payload) {
 			return axios.post('/send', payload)
 				;
 		}
