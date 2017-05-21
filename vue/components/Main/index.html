@@ -1,11 +1,28 @@
-<div class="container-fluid">
-	<h1>Mailer</h1>
+<div>
+	<v-toolbar class="blue">
+		<v-toolbar-title>Mailer</v-toolbar-title>
+	</v-toolbar>
+
+	<v-tabs id="mobile-tabs-1" grow scroll-bars v-bind:model="active">
+		<v-tab-item v-for="(tab, i) of tabs" :key="i" v-bind:href="'#mobile-tabs-1-' + i" ripple slot="activators">
+			{{tab.name}}
+		</v-tab-item>
+		<v-tab-content v-for="(tab, i) of tabs" :key="i" v-bind:id="'mobile-tabs-1-' + i" slot="content">
+			<v-card>
+				<v-card-text>
+					<component :is="tab.component"></component></v-card-text>
+			</v-card>
+		</v-tab-content>
+	</v-tabs>
+
+
 	<Login/>
-	<hr />
+	<hr/>
 	<Server/>
-	<hr />
+	<hr/>
 	<List/>
-	<hr />
+	<hr/>
 	<Message/>
-	<hr />
+	<hr/>
+
 </div>

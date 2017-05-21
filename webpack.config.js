@@ -38,9 +38,9 @@ module.exports = function (env = {}) {
 			index: [
 				"babel-polyfill",
 				'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-				'./vue/index.js',
+				'./vue/index.js'
 			],
-			vendor: ['vue', 'jquery'],
+			vendor: ['vue', 'jquery', 'vuetify']
 		},
 		output: {
 			path: path.join(__dirname, 'public'),

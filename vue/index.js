@@ -5,6 +5,12 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+// import VueMaterial from 'vue-material';
+// Vue.use(VueMaterial);
+
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
+
 new Vue({
 	el: '#app',
 	router,

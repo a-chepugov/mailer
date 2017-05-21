@@ -37,8 +37,10 @@
     "urijs": "^1.18.10",
     "vue": "^2.2.6",
     "vue-loader": "^11.3.4",
+    "vue-material": "^0.7.1",
     "vue-router": "^2.4.0",
     "vue-template-compiler": "^2.2.6",
+    "vuetify": "^0.11.1",
     "vuex": "^2.3.0",
     "webpack": "^2.3.3",
     "webpack-closure-compiler": "^2.1.4"

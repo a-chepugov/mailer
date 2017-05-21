@@ -1,17 +1,17 @@
-<blockquote>
-	<h3>Шаблон письма</h3>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-1 control-label" for="subject">Тема письма: </label>
-			<div class="col-sm-11">
-				<input class="form-control" type="text" id="subject" name="subject" v-model="subject"/>
+	<form >
+		<h3>Шаблон письма</h3>
+
+		<div >
+			<label  for="subject">Тема письма: </label>
+			<div >
+				<input  type="text" id="subject" name="subject" v-model="subject"/>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-sm-12 text-left">Текст письма: </label>
-			<div class="col-sm-12">
-				<textarea class="form-control" name="message" id="message" rows="25" cols="80" v-model="template"></textarea>
+		<div >
+			<label >Текст письма: </label>
+			<div >
+				<textarea  name="message" id="message" rows="25" cols="80" v-model="template"></textarea>
 			</div>
 		</div>
 
@@ -20,4 +20,3 @@
 		</div>
 		{{template}}
 	</form>
-</blockquote>
