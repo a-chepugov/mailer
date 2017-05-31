@@ -22,22 +22,32 @@ export default {
 			this.files = Array.from(files);
 			this.parseSourceFiles();
 		},
-		parseSourceFiles() {
+		async parseSourceFiles() {
 			this.data = [];
 			for (let file of this.files) {
-				CSV.parse(file,
-					(results = {}) => {
-						let {data = []} = results;
-						if (data.length) {
-							let fields = Object.keys(data[0]);
-							fields.splice(fields.indexOf('email'), 1);
-							this.fields = fields;
-							this.data = this.data.concat(data);
-							this.setData(data);
-						}
-					}
-				)
+				let promise = new Promise((resolve, reject) => {
+					CSV.parse(file,
+						(results = {}) => {
+							let {data = []} = results;
+							if (data.length) {
+								let fields = Object.keys(data[0]);
+								fields.splice(fields.indexOf('email'), 1);
+								resolve({fields, data});
+							}
+							resolve({});
+						},
+						reject
+					)
+				});
+				let {fields, data} = await promise
+					.catch(error => {
+						console.error(error);
+						return {}
+					});
+				this.fields = fields;
+				this.data = this.data.concat(data);
 			}
+			this.setData(this.data);
 		},
 		sourceDelete(index) {
 			this.files.splice(index, 1);
@@ -45,6 +55,7 @@ export default {
 		},
 		itemDelete(index){
 			this.data.splice(index, 1);
+			this.setData(this.data);
 		},
 		previewItemMail(index){
 			let {subject: subjectTemplate, message: messageTemplate} = this.$store.state.template;

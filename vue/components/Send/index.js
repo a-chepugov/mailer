@@ -20,6 +20,7 @@ export default {
 
 			this.setAuth()
 				.then(async() => {
+					console.dir(datas, {colors: true, depth: null});
 					console.info(`Начинаем отсылку писем. К отсылке => ${datas.length}`);
 					let stopSending = false;
 
@@ -39,12 +40,12 @@ export default {
 							subject,
 							message
 						};
-						await this.sendEmail(emailData)
-							.then(console.info, (error) => {
-								console.error('Ошибка при отправке! Рассылка остановлена!');
-								console.error(error);
-								stopSending = true;
-							});
+						// await this.sendEmail(emailData)
+						// 	.then(console.info, (error) => {
+						// 		console.error('Ошибка при отправке! Рассылка остановлена!');
+						// 		console.error(error);
+						// 		stopSending = true;
+						// 	});
 					}
 				})
 		},

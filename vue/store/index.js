@@ -33,8 +33,7 @@ export default new Vuex.Store({
 		setTemplate (state, payload) {
 			state.template = payload;
 		},
-		setData (state, payload) {
-			console.dir(arguments, {colors: true, depth: null});
+		setData (state, payload = []) {
 			state.data.splice(0, state.data.length, ...payload);
 		}
 	},
