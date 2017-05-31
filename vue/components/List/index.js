@@ -8,7 +8,6 @@ export default {
 		return {
 			files: [],
 			data: [],
-			fieldsSet: new Set,
 			fields: []
 		}
 	},
@@ -25,6 +24,7 @@ export default {
 		},
 		async parseSourceFiles() {
 			this.data = [];
+			let fieldsSet = new Set;
 			for (let file of this.files) {
 				let promise = new Promise((resolve, reject) => {
 					CSV.parse(file,
@@ -46,11 +46,11 @@ export default {
 						return {}
 					});
 				fields.forEach(item => {
-					this.fieldsSet.add(item)
+					fieldsSet.add(item)
 				});
 				this.data = this.data.concat(data);
 			}
-			this.fields = Array.from(this.fieldsSet);
+			this.fields = Array.from(fieldsSet);
 			this.setData(this.data);
 		},
 		sourceDelete(index) {

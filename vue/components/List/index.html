@@ -18,12 +18,13 @@
             </li>
         </ol>
 
-        <table>
+        <table border="1">
             <thead>Адресатов: {{data.length}}</thead>
             <tbody>
             <tr>
                 <th>Email</th>
                 <th v-for="field of fields">{{field}}</th>
+                <th></th>
                 <th></th>
             </tr>
             <tr v-for="(item, index) of data">
@@ -33,7 +34,8 @@
                     <button type="button" title="Просмотреть письмо" @click="previewItemMail(index)">
                         <span>&#x2709;</span>
                     </button>
-                    &nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
                     <button type="button" title="Удалить элемент" @click="itemDelete(index)">
                         <span>&times;</span>
                     </button>
