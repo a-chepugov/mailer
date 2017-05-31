@@ -1,23 +1,12 @@
-<blockquote>
-	<h3>Шаблон письма</h3>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-1 control-label" for="subject">Тема письма: </label>
-			<div class="col-sm-11">
-				<input class="form-control" type="text" id="subject" name="subject" v-model="subject"/>
-			</div>
-		</div>
+<section>
+    <h3>Шаблон письма</h3>
+    <form>
+        <label for="subject">Тема письма: </label>
+        <input type="text" id="subject" name="subject" v-model="subject" @input="saveTemplate"/>
 
-		<div class="form-group">
-			<label class="col-sm-12 text-left">Текст письма: </label>
-			<div class="col-sm-12">
-				<textarea class="form-control" name="message" id="message" rows="25" cols="80" v-model="template"></textarea>
-			</div>
-		</div>
+        <br/>
 
-		<div class="bs-example">
-			<input class="btn btn-default" type="button" @click="save" value="Сохранить"/>
-		</div>
-		{{template}}
-	</form>
-</blockquote>
+        <label>Текст письма: </label>
+        <textarea name="message" id="message" rows="25" cols="100" v-model="message"></textarea>
+    </form>
+</section>

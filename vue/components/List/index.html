@@ -1,40 +1,46 @@
-<blockquote>
-	<h3>Данные для отправки:</h3>
+<section>
+    <h3>Данные для отправки:</h3>
 
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-1 control-label" for="file">Список для рассылки:</label>
-			<div class="col-sm-3">
-				<input class="btn btn-default" type="file" id="file" multiple accept="text/csv" @change="onChange"/>
-			</div>
-		</div>
-	</form>
+    <form>
+        <label for="file">Список для рассылки:</label>
+        <input type="file" id="file" multiple accept="text/csv" @change="onSourcesChange"/>
+    </form>
 
-	<ol v-show="files.length">
-		<h4>Файлов с адресами: {{files.length}}</h4>
-		<li v-for="file of files">{{file.name}}</li>
-	</ol>
+    <section v-show="files.length">
+        <h4>Файлов с данными: {{files.length}}</h4>
 
-	<div class="table-responsive">
-		<table class="table table-hover table-condensed" v-show="data.length">
-			<thead>Адресатов: {{data.length}}</thead>
-			<tbody>
-			<tr>
-				<th>Email</th>
-				<th v-for="field of fields">{{field}}</th>
-				<th></th>
-			</tr>
-			<tr v-for="(item, index ) of data">
-				<td :class="{'danger': !item.email }">{{item.email}}</td>
-				<td :class="{'warning': !item[field] }" v-for="field of fields">{{item[field]}}</td>
-				<td>
-					<button type="button" class="close" aria-label="Close" @click="itemDelete(index)">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	</div>
+        <ol>
+            <li v-for="(file, index) of files">
+                <button type="button" title="Удалить источник" @click="sourceDelete(index)">
+                    <span>&times;</span>
+                </button>
+                {{file.name}}
+            </li>
+        </ol>
 
-</blockquote>
+        <table>
+            <thead>Адресатов: {{data.length}}</thead>
+            <tbody>
+            <tr>
+                <th>Email</th>
+                <th v-for="field of fields">{{field}}</th>
+                <th></th>
+            </tr>
+            <tr v-for="(item, index) of data">
+                <td :class="{'danger': !item.email }">{{item.email}}</td>
+                <td :class="{'warning': !item[field] }" v-for="field of fields">{{item[field]}}</td>
+                <td>
+                    <button type="button" title="Просмотреть письмо" @click="previewItemMail(index)">
+                        <span>&#x2709;</span>
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" title="Удалить элемент" @click="itemDelete(index)">
+                        <span>&times;</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+</section>

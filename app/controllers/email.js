@@ -4,10 +4,12 @@ export function setServer(req, res, next) {
 	let {
 		username: user,
 		password,
-		hostname: host
+		hostname: host,
+		port,
+		ssl
 	} = req.body;
 
-	emailServer.configServer({user, password, host});
+	emailServer.configServer({user, password, host, port, ssl});
 	res.status(200).json({message: 'ready'});
 
 	next();

@@ -4,19 +4,19 @@ export default {
 	components: {},
 	data () {
 		return {
-			username: '',
-			password: ''
+			username: this.$store.state.auth.username,
+			password: this.$store.state.auth.password,
 		};
 	},
 	methods: {
 		...mapMutations([
 			'setAuth'
 		]),
-		onUsernameChange() {
-			this.setAuth({username: this.username, password: this.password});
-		},
-		onPasswordChange() {
+		onUserDataChange() {
 			this.setAuth({username: this.username, password: this.password});
 		}
+	},
+	created () {
+		this.onUserDataChange();
 	}
 };

@@ -1,5 +1,7 @@
 import {mapActions, mapMutations} from 'vuex';
+
 const CSV = require('../../../helpers/CSV');
+import render from '../../../helpers/render';
 
 export default {
 	data () {
@@ -13,31 +15,46 @@ export default {
 		...mapMutations([
 			'setData'
 		]),
-		onChange(event){
-			let {target: {files = [], value} = {}} = event;
-			this.files = files;
+		onSourcesChange(event){
+			let {target: {files = []} = {}} = event;
 
-
-			function getAddressees(results = {}, file = {}) {
-				let {data = []} = results;
-
-				if (data.length) {
-					let fields = Object.keys(data[0]);
-					fields.splice(fields.indexOf('email'), 1);
-					this.fields = fields;
-					this.data = this.data.concat(data);
-					this.setData(data);
-				}
-			}
-
-			for (let file of files) {
+			// files является объектом типа FilesList
+			this.files = Array.from(files);
+			this.parseSourceFiles();
+		},
+		parseSourceFiles() {
+			this.data = [];
+			for (let file of this.files) {
 				CSV.parse(file,
-					getAddressees.bind(this)
+					(results = {}) => {
+						let {data = []} = results;
+						if (data.length) {
+							let fields = Object.keys(data[0]);
+							fields.splice(fields.indexOf('email'), 1);
+							this.fields = fields;
+							this.data = this.data.concat(data);
+							this.setData(data);
+						}
+					}
 				)
 			}
 		},
+		sourceDelete(index) {
+			this.files.splice(index, 1);
+			this.parseSourceFiles();
+		},
 		itemDelete(index){
 			this.data.splice(index, 1);
+		},
+		previewItemMail(index){
+			let {subject: subjectTemplate, message: messageTemplate} = this.$store.state.template;
+			let data = this.data[index];
+			const subject = render(subjectTemplate, data);
+			const message = render(messageTemplate, data);
+
+			const preview = window.open("", "Предпросмотр", "titlebar=yes,scrollbars=yes,toolbar=yes");
+			preview.document.write(message);
+			preview.document.title = subject;
 		}
 	},
 }

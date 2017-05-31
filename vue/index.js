@@ -5,6 +5,19 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+// import Vuetify from 'vuetify';
+// Vue.use(Vuetify);
+
+import VueMaterial from 'vue-material';
+Vue.use(VueMaterial);
+
+Vue.material.registerTheme('default', {
+	primary: 'blue',
+	accent: 'red',
+	warn: 'red',
+	background: 'grey'
+});
+
 new Vue({
 	el: '#app',
 	router,

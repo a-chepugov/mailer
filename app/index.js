@@ -33,8 +33,8 @@ app.use(webpackHotMiddleware(compiler, {
 }));
 
 const server = app.listen(9876, function () {
-	const host = server.address().address;
+	// const host = server.address().address;
+	const host = 'localhost';
 	const port = server.address().port;
-
-	console.log('Example app listening at http://%s:%s', host, port);
+	console.info('App listening at http://%s:%s', host, port);
 });

@@ -9,15 +9,17 @@ class email {
 		let {
 			user,
 			password,
-			host
+			host,
+			port,
+			ssl
 		} = config;
 
 		this.server = emailjs.server.connect({
 			user,
 			password,
 			host,
-			port: 465,
-			ssl: true,
+			port,
+			ssl,
 			timeout: 9999
 		});
 	}

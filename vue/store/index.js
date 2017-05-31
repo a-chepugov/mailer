@@ -1,15 +1,26 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-import axios from 'axios';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		auth: {},
-		emailServerConfig: {},
-		data: []
+		auth: {
+			username: '',
+			password: ''
+		},
+		serverConfig: {
+			hostname: 'smtp.gmail.com',
+			port: '465',
+			ssl: true
+		},
+		template: {
+			subject: 'Здравствуйте {{name}}!',
+			message: 'Уважаемый {{name}}, ваш email - {{email}}.'
+		},
+		data: [],
+		status: []
 	},
 	getters: {},
 	mutations: {
@@ -17,24 +28,24 @@ export default new Vuex.Store({
 			state.auth = payload;
 		},
 		setEmailServerConfig (state, payload) {
-			state.emailServerConfig = payload;
+			state.serverConfig = payload;
+		},
+		setTemplate (state, payload) {
+			state.template = payload;
 		},
 		setData (state, payload) {
+			console.dir(arguments, {colors: true, depth: null});
 			state.data.splice(0, state.data.length, ...payload);
 		}
 	},
 	actions: {
 		setAuth (context) {
-			return axios.post('/auth', context.state.auth)
-				;
-		},
-		setEmailServerConfig (context) {
-			return axios.post('/server', context.state.emailServerConfig)
-				;
+			let {auth, serverConfig} = context.state;
+			let data = {...auth, ...serverConfig};
+			return axios.post('/auth', data);
 		},
 		sendEmail (context, payload) {
-			return axios.post('/send', payload)
-				;
+			return axios.post('/send', payload);
 		}
 	}
 });
