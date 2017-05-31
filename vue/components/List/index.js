@@ -8,6 +8,7 @@ export default {
 		return {
 			files: [],
 			data: [],
+			fieldsSet: new Set,
 			fields: []
 		}
 	},
@@ -44,9 +45,12 @@ export default {
 						console.error(error);
 						return {}
 					});
-				this.fields = fields;
+				fields.forEach(item => {
+					this.fieldsSet.add(item)
+				});
 				this.data = this.data.concat(data);
 			}
+			this.fields = Array.from(this.fieldsSet);
 			this.setData(this.data);
 		},
 		sourceDelete(index) {
