@@ -22,14 +22,21 @@
             <thead>Адресатов: {{data.length}}</thead>
             <tbody>
             <tr>
-                <th>Email</th>
                 <th v-for="field of fields">{{field}}</th>
                 <th></th>
                 <th></th>
             </tr>
             <tr v-for="(item, index) of data">
-                <td :class="{'danger': !item.email }">{{item.email}}</td>
-                <td :class="{'warning': !item[field] }" v-for="field of fields">{{item[field]}}</td>
+                <td :class="{'warning': !item[field] }" v-for="field of fields">
+                    <div style="
+                        max-height: 1.5rem;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 50ch;"
+                    >
+                    {{item[field]}}
+                    </div>
+                </td>
                 <td>
                     <button type="button" title="Просмотреть письмо" @click="previewItemMail(index)">
                         <span>&#x2709;</span>

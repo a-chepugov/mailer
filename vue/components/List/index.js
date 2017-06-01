@@ -32,7 +32,6 @@ export default {
 							let {data = []} = results;
 							if (data.length) {
 								let fields = Object.keys(data[0]);
-								fields.splice(fields.indexOf('email'), 1);
 								resolve({fields, data});
 							}
 							resolve({});

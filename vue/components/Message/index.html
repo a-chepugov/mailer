@@ -1,12 +1,16 @@
 <section>
     <h3>Шаблон письма</h3>
     <form>
-        <label for="subject">Тема письма: </label>
-        <input type="text" id="subject" name="subject" v-model="subject" @input="saveTemplate"/>
+        <label for="subject">Тема: </label>
+        <input type="text" id="subject" name="subject" v-model="subject" placeholder="Тема письма"
+               @input="saveTemplate"/>
 
         <br/>
 
-        <label>Текст письма: </label>
+        <label for="message">Текст: </label>
+        <br/>
+        <label for="file">Загрузить текст из файла:</label>
+        <input type="file" id="file" accept="text/plain,text/html" @change="onMessageLoad"/>
         <textarea name="message" id="message" rows="25" cols="100" v-model="message"></textarea>
     </form>
 </section>

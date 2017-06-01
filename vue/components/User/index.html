@@ -7,5 +7,8 @@
         <label for="password">Пароль: </label>
         <input type="password" id="password" name="password" placeholder="Пароль"
                v-model="password" @input="onUserDataChange"/>
+        <br/>
+        <label for="file">Загрузить username и password из файла (.csv):</label>
+        <input type="file" id="file" multiple accept="text/csv" @change="onAuthSourcesChange"/>
     </form>
 </section>

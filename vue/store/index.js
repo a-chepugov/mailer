@@ -16,7 +16,7 @@ export default new Vuex.Store({
 			ssl: true
 		},
 		template: {
-			subject: 'Здравствуйте {{name}}!',
+			subject: 'Здравствуйте {{name}}.',
 			message: 'Уважаемый {{name}}, ваш email - {{email}}.'
 		},
 		data: [],
